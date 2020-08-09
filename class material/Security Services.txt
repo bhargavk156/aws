@@ -1,0 +1,214 @@
+D: 05/08/2020
+
+Security OF the cloud : AWS .. 
+
+Security IN the cloud : YOU/ME
+
+
+--> Cloudfront : CFD is a Global Service.. Doesn't required region selection.. 
+	--> TO map a SSL cert for Cloudfront, create a SSL in N.Virginia region.
+	--> To clear the cached data from Edge, We can perform Invalidations.
+
+ACM : Amazon Certificate Manager : Service to generate SSL Cert.. 
+
+
+D: 06/08/2020
+
+--> http to https redirection: 
+https://raw.githubusercontent.com/avizway/redirection/master/httptohttps
+
+https://www.youtube.com/watch?v=93ekvcpzs1o
+
+GLobal Accelerator: 
+
+
+Cloudtrail : Track all user activities. ENabled by defaultly, It stores last 90 days activities only.
+
+Management events : Capture management operations performed on your AWS resources.
+Data events : s3 / lambda : Log the resource operations performed on or within a resource.
+Insights events
+Identify unusual activity, errors, or user behavior in your account.
+
+
+Config : Inventory service on AWS : 
+
+Trusted Advisor : 
+--> Cost Optimization
+--> Performance
+--> Security
+--> Fault Tolerance
+--> Service Limits
+
+PHD : Personal health Dashboard : 
+
+_____________________________________________________________________________________
+
+D: 07/08/2020
+
+AWS Inspector : NO FREE TIER .. 
+
+Launched an ec2 instance : appliation ..!!! patching / port / Security best practices / Network rechability / CIS standards..!!!
+
+
+AWS WAF : Web Application Firewall : NO FREE TIER..
+--> Cloudfront
+--> Application ELB
+--> API Gateway
+
+AWS Shield : Protect our applications from DDoS attacks. 
+	--> Cloudfront 
+	--> ASG
+
+_____________________________________________________________________________________
+
+AWS Lambda : 
+--> Serverless architecture
+--> Write your code, Zip it and uplod it.. Run the code without servers..
+--> Based on request count / code run duration / memory allocation.
+
+EBS VOlume status:
+
+___________________________________
+import boto3
+import json
+
+client=boto3.client('ec2')
+sns = boto3.client('sns')
+sns_topic = "arn:aws:sns:ap-south-1:518084852393:S3Notifications"
+sns_subject =  "Un-attached/not in use EBS Volumes"
+Non_Compliant=[]
+tags = {}
+
+def lambda_handler(event, context):
+    result = client.describe_volumes( Filters=[{'Name': 'status', 'Values': ['available']}])
+    msg = "Hi Team," + "\n" + "Below is the list of available status Volumes details" + "\n"
+    for volume in result['Volumes']:
+        for tag in volume['Tags']:
+            tags[tag['Key']] = tag['Value']
+            #print(tags)
+        if 'avlexception' in tags:
+            print('Compliant volume',volume['VolumeId'])
+        else:
+            print('Non Compliant Volume/Not attached'+ volume['VolumeId'])
+            noncompliant='Non Compliant Volume id %s' %volume['VolumeId']
+            Non_Compliant.append(noncompliant)
+            msg = msg + "\n" + noncompliant
+            sns.publish(TopicArn='arn:aws:sns:ap-south-1:518084852393:S3Notifications', Message = "\n" + msg, Subject='EBS Volume in available status')
+    # return Non_Compliant
+
+_________________________________________
+
+NON Encrypted volume : 
+
+________________________________________
+
+import boto3
+import json
+import sys
+
+client=boto3.client('ec2')
+sns = boto3.client('sns')
+sns_topic = "arn:aws:sns:ap-south-1:518084852393:S3Notifications"
+sns_subject =  "Non-Encrypted EBS Volumes"
+Non_Compliant=[]
+
+
+def lambda_handler(event, context):
+    result = client.describe_volumes( Filters=[{'Name': 'encrypted', 'Values': ['false']},{'Name': 'attachment.device', 'Values': ['/dev/sdf','/dev/sdg','/dev/x*']}])
+    msg = "Hi Team," + "\n" + "Below is the list of Non-Encrypted Volumes details" "\n" "Service Team please create and assigne ticket to Cloud Team" + "\n"
+    #print(EBS_All)
+    #object_contents = response['Volumes'][0]
+    #EBS_Vol_All=EBS_All['Volumes']
+    #print(EBS_Vol_All)
+    for volume in result['Volumes']:
+        #if 'Tags' in volume:
+        tags = {}
+        for tag in volume['Tags']:
+            tags[tag['Key']] = tag['Value']
+            #print(tags)
+        if 'exception' in tags:
+           # tags["Key"] != 'encryptexception':
+            print(volume['VolumeId'])
+        
+        else:
+            print("---" + volume['VolumeId'])
+            noncompliant='Non Compliant Volume id %s.' %volume['VolumeId']
+            Non_Compliant.append(noncompliant)
+            msg = msg + "\n" + noncompliant
+            sns.publish(TopicArn='arn:aws:sns:ap-south-1:518084852393:S3Notifications', Message = "\n" + msg, Subject='EBS Non Encrypted Volume')
+    # return Non_Compliant
+
+_____________________________________________________
+
+
+Task: How to perform start/stop instances periodically using lambda.
+
+https://www.youtube.com/watch?v=8gfSS-ZIulQ
+
+
+
+https://avinash69.s3.ap-south-1.amazonaws.com/test1.pdf
+
+
+_______________________________________________________________________________________
+
+D: 08/08/2020
+
+Cloudformation: Infra as a Code.. 
+--> JSON
+--> YAML
+
+Write your code and deploy it, all mentioned resources creates automatically.. 
+
+https://www.youtube.com/watch?v=YYXdXT2l-Gg&list=PL-osiE80TeTt2d9bfVyTiXJA-UTHn6WwU
+
+
+AWS Console recorder for Chrome / mozilla extension..!!
+
+__
+
+AWS CICD: 
+
+
+
+https://avinash69.s3.ap-south-1.amazonaws.com/test1.pdf
+https://avinash69.s3.ap-south-1.amazonaws.com/test2.pdf
+https://avinash69.s3.ap-south-1.amazonaws.com/test3.pdf
+
+
+https://avinash69.s3.ap-south-1.amazonaws.com/share.zip
+
+
+Migration task: 
+
+Cloudendure : 
+https://console.cloudendure.com/#/register/register
+
+Azure: Azure SMS Connector : https://www.youtube.com/watch?v=bdaHMRqCBkg
+
+GCP : https://www.youtube.com/watch?v=8xf1RpPdcHs
+
+SMS : VMWare / Hyper-V : https://www.youtube.com/watch?v=Vx9lRRY-shg
+
+AWS Storage gateway: VMWare / Hyper-V :https://www.youtube.com/watch?v=wmcBSHpoHhs
+
+Amazon Managed AD : https://www.youtube.com/watch?v=RDlBoAHVmZs
+AD Connector : 	
+
+Linux instance domain Join : https://www.youtube.com/watch?v=LWi9-XL2vWQ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

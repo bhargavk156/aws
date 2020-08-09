@@ -1,0 +1,55 @@
+Route53 is AWS DNS Service.. 
+DOmain Naming system/service..
+
+DOmain Registrers: Godaddy, bigrock, web.com, aws r53.. 
+ICANN : Domain uniqueness
+IANA : Maintains root zone db..
+
+whoisdb	: 
+
+google.com	--> TLD (Top Level Domain Name)
+google.co.in	--> SLD (Second level Domain Name)
+
+_________________________________________________________________________________
+
+D: 22/07/2020
+
+DNS Record : 
+A : Address Record : FQDN to IP and vice versa..
+Alias Record : Intelligent record.. Changes happening on backend will identified automatically.. 
+
+When we create a HostedZOne, We will get NS Records & SOA Records.. 
+SOA : Start of authority record : ZOne information
+NS Record : Name Server Record : Plays key role when we purchase doamin from 3rd party domain registrers.. i.e; GoDaddy/Bigrock/freenom.. 
+
+AWS R53 Routing Policy: 
+
+--> Simple RP
+--> Weighted RP
+--> Latency RP
+--> Geo Location RP
+--> Failover RP
+--> MultiValue Answe RP
+
+
+
+VPC : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,166 @@
+VPC : 
+
+IPv4 : 32 bit : 2^32 IPs : 
+IPv6 : 128 bit : 2^128 IPs : 
+
+
+Public IP Address : Unique Across the Globe..   : ISP
+Private IP Address : Unique within the network.. :  10, 172, 192
+
+IPv4 : 5 Classes.. 
+
+Class A : 0-126		: 10
+Class B : 128-191	: 172
+CLass C : 192-223	: 192
+
+Class D : braodcasting : 224-239
+Class E : R&D/Future   : 240-255
+
+
+PRIVATE IP RANGES
+CLASS A: 10.0.0.0 to 10.255.255.255
+CLASS B: 172.16.0.0 to 172.31.255.255
+CLASS C: 192.168.0.0 to 192.168.255.255
+
+
+Requirement : 
+--> How many networks you required.?
+--> How many Hosts you are going add to every network.?
+
+Class A : N.H.H.H
+Class B : N.N.H.H
+Class C : N.N.N.H
+
+
+/32	/31	/30	/29	/28	/27	/26	/25	/24	/16	/0
+
+2^0	2^1	2^2	2^3	2^4	2^5	2^6	2^7	2^8		2^32
+
+1	2	4	8	16	32	64	128	256	65536	4M
+
+AWS Reservs 5 IP Addreses.. 
+--> 2 Network ID & Broadcost ID
+--> 2 DNS Servers
+--> 1 Future use
+
+AWS Supports : Max : /16, Min : /28...
+
+/16 : 65536 - 5 = 65531 Usable IPs..!!!
+
+32 - 24 = 8
+2^8 = 256 - 5 = 251 Usable IPs.. 
+
+_______________________________________________________________
+
+Default VPC: 
+--> Contains all subnets as public. 
+--> We cannot choose the IP range.
+--> AWS also don;t recommend to use default VPC for Prod worloads.
+
+Public Subnet : Internet Facing.. We can run ELB, Jump Server..!!
+Private Subnet : Non-Internet faced.. Application servers, DB servers..!!!
+
+
+CustomVPC : 
+--> We can choose our required IP ranges.
+--> We can create public SUbnets and Private Subnets.
+
+
+32-24 = 8 = 256-5= 251 usable
+
+______________________________________________________________________________________
+
+D: 24/07/2020
+
+
+Step 1 : Create a VPC (Name : CustomVPC, CIDR : 192.168.0.0/16)
+
+Step 2 : Create Subnets
+	PublicSubnet : ap-south-1a : CIDR: 192.168.100.0/24
+	PrivateSubnet : ap-south-1b : CIDR: 192.168.200.0/24
+	
+Step 3 : Create an IGW and Associate with CustomVPC.
+
+Step 4 : Create a RouteTables and add routes and associate Subnets.
+
+	PublicRoute: --> Navigate to SUbnet Association: Choose "PublicSubnet", Navigate 			 to route, Add a route : 0.0.0.0/0 --> IGW
+	PrivateRoute : --> Navigate to SUbnet Association: Choose "PrivateSubnet".
+
+Step 5 : Navigate to Subnets, Choose "PublicSubnet", Enable "AutoAssign Publi IP settings".
+
+NAT Gateway : NAT Gateway always runs in our CustomVPCs PublicSUbnet, and Provide Internet to Private SUbnet EC2 instances.
+--> Generate an EIP and Create NAT Gateway. 
+--> Add route to "PrivateRouteTable", add an entry 0.0.0.0/0 --> NAT Gateway.
+
+NAT Instance : 
+
+Task : Create a VPC with discussed settings..!!! 
+
+________________________________________________________________________________________
+
+D: 25/07/2020
+
+NAT Instance (Free Tier) : 
+--> We don't use this in Production environments..!!
+--> Launch an NAT instance in CUSTOMVPCs Public SUbnet.
+--> Open http & Https in SG of NAT Instance.
+--> Disable "Source/Destination check".. Choose instance, Navigate to Network settings.
+
+--> Add route to "PrivateRouteTable", add an entry 0.0.0.0/0 --> NAT Instance.
+
+____
+
+Logging option at VPC : FLOW LOGS..
+
+--> Store in S3 Bucket
+--> Store in Cloudwatch Logs
+
+NACLs: Required Ephemeral Ports based on OS/ELB.. 
+
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html#nacl-ephemeral-ports
+
+_______________________________________________________________________________________
+
+D: 27/07/2020
+
+
+ssh -i keypair.pem ec-user@privateIPAddress
+
+VPC Peering : 
+_____________
+
+Enabled the communication between multiple VPCs.
+--> VPC Peering is Non-Transitive.
+
+		Requester VPC 			Accepter VPC
+CIDR		vpc-07322abcfec6525ef		vpc-0c84f896a6c0bb6fe
+VPC IP		192.168.0.0/16			172.31.0.0/16
+Region		ap-south-1			us-east-1
+Acc num	
+
+In Requesrer RT, add a route via Accepter CIDR and vice versa..!!
+
+AWS Transite Gateway:  https://www.youtube.com/watch?v=xyLlMBHy2wc
+VPN Connectivity : https://www.youtube.com/watch?v=JSTyjISscNg
+
+_____________
+
+Gateway Endpoint : S3 and DynamoDB
+**
+Without internet we can access S3 resurces from private subnet instances using Endpoints.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

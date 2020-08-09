@@ -1,0 +1,596 @@
+EC2 : Elastic Compute Cloud.. 
+
+Instances = Server = VMs/ Virtual Machines / Azure VM / GCP Engine
+
+
+On-Demand ec2 Instance : No stable workload, Non Predictable use cases, If you want to test your application for the first time.. 
+Pricing : per hr basis..  /sec basis (With min of 60 Sec)..
+
+
+Reserved Instances (RI) : FOr long term runs, Stable work loads.. Less cost compared to On-Demand. Duration : 1 Yr / 3 Yrs.. 
+
+RI : 
+	--> Standard RI : We cannot change the configuration.
+	--> Convertable RI : We can chnage the configuration. 
+	--> Scheduled RI : Repeated tasks for a duration.
+
+Pricing : 
+	--> Full Upfront : Pay everything while purchasing. 
+	--> Partial upfront : Pay 30-50% while purchasing, Remaining monthly basis with reduced pricing. 
+	--> No Upfront : Pay everything monthly basis.
+
+
+SPOT Instances : If we have flexible start / stop duration, If any server terminates application not gonna effect.. 
+--> Spot Feet requests
+--> Pricing History
+
+16CPU, 32 RAM Server.. 1$/Hr.. Bid your price against aws pricing..  
+: 0.50$/Month.. Duration
+
+
+0.10$/Hr...   1.45 Hr.. Price increased and AWS terminated instance.. = 0.10$
+0.10$/Hr...   1.45 Hr.. Price not increased and you terminated instance.. = 0.20$
+
+
+Tenancy : 
+--> Shared Tenancy : Underlying hardware shares with Multiple customers.
+--> Dedicated tenancy : Underlying h/w will not share with any other customer.
+	--> Dedicated host : 
+	--> Dedicated Instance : 
+
+https://aws.amazon.com/ec2/dedicated-hosts/#:~:text=An%20important%20difference%20between%20a,same%20physical%20server%20over%20time.
+
+
+______________________________________________________________________________________
+
+D: 
+
+03/07/2020
+
+EC2 : Region specif Service..!! 
+Mumbai  :
+N Virginia : 
+
+Free Tier : 
+750 Hours/Month : 1 Server = 1 Month.. t2.micro.. Windows Instance
+750 Hours/Month : 1 Server = 1 Month.. t2.micro.. Linux Instance
+
+
+Windows Instance Launch : 
+
+Step 1 : Choose an AMI (Amazon Machine Image) 		: OS
+AMI : template of an OS with required applications and services to run our instance.
+Windows Server 2016 Base
+
+Step 2 : Choose an instance Type			: CPU, RAM, Network
+
+Free tier : t2.micro
+
+t3.medium : 2 vCPU, 4 RAM
+c5.xlarge : c5.xlarge 4 vCPU, 8 RAM
+m4.2xlarge 8 vCPU, 32 RAM
+
+general purpose : t2, t3, t3a, m3, m4, m5a
+COmpute : c4, c5, c5n
+GPU : p2, g4
+Memory : r4, r5, r5d, x1
+Storage : i2, d
+
+
+General Purpose : General purpose instances provide a balance of compute, memory, and network resources, and are a good choice for many applications. 
+
+Compute optimized : instances have a higher ratio of vCPUs to memory than other families, and the lowest cost per vCPU among all Amazon EC2 instance types.
+
+GPU instances provide graphics processing units (GPUs) along with high CPU and network performance for applications benefiting from highly parallelized processing, including 3D graphics, HPC, rendering, and media processing applications.
+
+Memory optimized instances have the lowest cost per GB of RAM among Amazon EC2 instance types.
+
+Storage optimized instances provides you with direct-attached storage options optimized for applications with specific disk I/O and storage capacity requirements.
+
+
+Step 3 : Configure additional options			: 
+
+Shutdown behavior : Stop / Terminate 	--> STOP
+Termination protection : 
+
+
+Step 4 : Choose Storage					: Storage (SSD/HDD/Magnetic)
+
+Step 5 : Configure Tags					: Add tags (Max 50 Tags)
+
+Step 6 : Configure SG					: Port/Protocol.. 
+
+Windows : RDP : 3389 : 0.0.0.0/0
+Linux : SSH : 22 : 0.0.0.0/0
+
+OS : 0-65535 Port numbers.. 
+
+Step 7 : Review and Launch With a Keypair.		: For UN & Pwd
+
+.pem file --> 
+
+Public Key : AWS keeps the public key with them, They place it in our instance.
+Private Key : Gives to us when we create a keypair..  
+
+
+
+How to connect : 
+Windows : mstsc / Remote desktop connections.. 
+
+--> Goto start --> look for "Remote Desktop conection"--> open
+--> goto "run" --> enter "mstsc"
+--> choose instance --> goto "Actions" --> Connect --> Down load "remote desktop file".
+
+
+Task : Create another user in our ec2 instance, Provide him "RDP permissions" and "Local admin rights".
+
+Try to login to the instance with newly created user. 
+
+________________________________________________________________________________________
+
+D: 04/07/2020
+
+Security groups : 
+
+Install IIS in Windows ec2 instance. 
+
+C:\inetpub\wwwroot		--> Place index.html file here.
+
+
+SG contains Inbound rules and Outbound rules..
+
+Outbound: By defaultly all traffic allowed via outbound rules to our ec2 instance. 
+
+Inbound : Whatever the traffic you want to deliver from your ec2 instance, we need to open that port explicitly.
+
+--> Changes to the SG takes effect immediately for all the insatnce.
+--> We cannot deny traffic using SG.
+
+rdp : 3389
+ssh : 22
+http : 80
+https : 443
+mysql : 3306
+mssql : 1433
+
+Allow for everyone, except on network...!!!! Not possible using SG.	(NACL --> VPC)
+
+
+EIP Elastic IP Addresss : NO FREE TIER : From AWS we can get a Dedicated IP address. We can use this IP address for our resources.
+
+ENI : Elastic Network Interface : If we required additional Network interfaces, we can use ENI.
+
+
+Status Checks : 
+
+System Status Checks : These checks monitor the AWS systems required to use this instance and ensure they are functioning properly.
+
+Instance Status Checks  : These checks monitor your software and network configuration for this instance.
+
+Task : Ping your ec2 instance.
+
+Task 2 : Launch Multiple Windows ec2 instance, Make instance 1 as a webserver..  and add additional ENI for instance 1 with only private IP.  (webserver with 2 Private IPs)
+
+Connect to another ec2 instance, Try to access the webpage using 2 private IPs.
+
+
+________________________________________________________________________________________
+
+D: 06/07/2020
+
+--> Instance Store volumes
+--> EBS Volumes
+
+EBS : Elastic Block Storage.. 
+
+Root volumes : gp2, io1 & magnetic
+
+--> General purpose SSD : gp2 : low latency interactive appliation, Dev/Test.. 
+Min: 1 Gb, Max: 16 TB....  IOPS : 16,000 IOPS Max.... 1 gb = 3 iops with min of 100.. 
+0.10 gb/month
+
+--> provisioned IOPS : io1 : Highest performance SSD, I/O intensive applications, Relational databases.. Min : 4 gb, Max: 16 TB.. IOPS: 64,000 IOPS max.. default ration 
+1 gb = 50 iops.. We can specify required iops count.. 0.125 gb/month
+
+--> Magnetic : standard : less freq accessed data, cheapest cost.. 
+Min: 1 gb, Max : 1 TB.. 
+
+
+==> BigData, Datawarehousing, log processing... 
+
+--> Throughput optimised HDD : st1 :  Frequently accessed nigdata, logprocessing, 
+Min: 500 gb, Max: 16 TB.. IOPS : 500 IOPS.. 0.045 gb/month
+ 
+--> Cold HDD : sc1 : Less freq accessed workloads, bigdata, logprocessing, 
+Min: 500 gb, Max: 16 TB.. IOPS : 250 IOPS.. 0.025 gb /month...
+
+WIndows : FAT, FAT31, NTFS, ReFS
+Linux : ext3, ext4, xfs
+
+Snapshots: Snapshots are backup copies of our EBS volumes.
+--> SS are point-in-time copies.
+--> Backend aws uses s3 to store these snapshots.
+
+Task : Launch an ec2 instance in 1a, Create volumes, make it avialble for your 1a ec2 instance. ... add some data..
+
+Launch another ec2 instance in 1b, make the 1a addiitonal volume availbale to this instance. 
+
+_______________________________________________________________________________________
+
+D: 07/07/2020
+
+
+DLM : Data LifeCycle Manager.. To automate the EBS volume backup SS..!!!
+
+GoldenAMI : Customized AMI
+
+______________________________________________________________________________________
+
+D: 08/07/2020
+
+
+Windows : mstsc : 3389 : Remote desktop connection
+Linux : ssh : Secure Shell : 22 : 
+
+
+Mac/Linux : Terminal
+Windows : Putty, MobaXterm, COmmand prompt(Install openssh), Git for windows
+
+
+Putty won't support .PEM format, We need to conver .pem to .ppk.. We can PuttyGen to COnver.
+
+
+ssh -i mykeypair.pem ec2-user@13.126.34.170
+
+
+Linux Commands:
+
+sudo yum update : 
+whoami			: Tells us as what user we are working.
+sudo su			: To switch to root user.
+
+yum update -y		: to update OS with patches
+yum install httpd -y	: Install the httpd package
+service httpd start	: To start the httpd service	(status / stop / restart)
+chkconfig httpd on	: To make httpd as Logon service
+
+cd			: Change directory
+ls			: list (Shows what files/dir we have)
+
+cd /var/www/html 
+
+editors: vi, vim, nano.. : VIM
+
+vim index.html
+
+I	: INSERT Mode
+ESC	: Comesout from Insert Mode
+:wq	: Write and Quit
+:q!	: Quit without writing the changes
+
+
+chmod 400 keypair
+ssh -i keypair ec2-user@publicip
+
+______________________________________________________________________________________
+
+D: 09/07/2020
+
+
+Windows : diskmagement -> Online --> Initilize disk --> VOlume file system --> E/F : 
+Linux : get the path of new volume (/dev) --> Write a file system --> create a dir --> and mount it to dir.. add an entry in "fstab file".. 
+
+lsblk 			: List all the block based devices
+/dev/xvdb	--> 1 gb volume	
+
+df -Th			: view active volumes
+
+mkdir foldername		: Created a directory
+
+lsblk
+df -Th
+mkdir newvolume
+ls
+mkfs -t xfs /dev/xvdb
+mount /dev/xvdb newvolume/
+df -Th
+lsblk
+
+for permanent mount, need to add an entry in "/etc/fstab" file
+
+cat /etc/mtab	--> To get the entry information to add to fstab file.
+
+/dev/xvdb /home/ec2-user/newvolume xfs rw,relatime,attr2,inode64,noquota 0 0
+
+vim /etc/fstab		--> TO edit the fstab file
+
+____
+
+Increase 2 gb and make it available.. 
+
+Choose the volume and extend the volume in AWS console..!!
+
+lsblk		--> verify newly added storage avilable / not.
+df -Th		--> Shows only 1 gb as size.
+get the mount path
+
+xfs_growfs -d /home/ec2-user/newvolume/		--> it increases to 2 gb.
+
+df -Th		--> Shows 2 gb as size.
+
+_______________________________________________________________________________________
+
+D: 10/07/2020
+
+
+curl http://169.254.169.254/latest/user-data
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+echo "<h1>This is simple webpage</h1>" >> /var/www/html/index.html
+
+Userdata: Open Briwser and  http://169.254.169.254/latest/user-data
+
+<powershell>
+tzutil /s "India Standard Time"
+</powershell>
+
+execute a command after every reboot : <persist>true</persist>
+
+___________
+
+Meta-data: http://169.254.169.254/latest/meta-data/
+
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hibernation/
+hostname
+identity-credentials/
+instance-action
+instance-id
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/
+
+
+ec2 Instance : Monitoring --> CLoudwatch.. 
+
+_______________________________________________________________________________________
+
+D: 13/07/2020
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+echo "<h1>This is my webserver 1b</h1>" >> /var/www/html/index.html
+
+Classic ELB : (Prevous generation) : http. https, tcp, udp... 
+r
+Network ELB : TCP, UDP, TLS..
+
+Enable Logging : AccessLogs : S3 bucket.. 
+Sticky Sessions : 
+
+Task : Launch multiple instances in multiple AZs, and make them as web servers..
+Configure Classic ELB. (*COnfigure SG as dicussed)
+
+Free tier : 750 Hours / Month for ELB.... 1 ELB We can run for entire month..
+
+_______________________________________________________________________________________
+D: 14/07/2020
+
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+echo "<h1>This is my webserver 1a</h1>" >> /var/www/html/index.html
+
+http://appelb-594750406.ap-south-1.elb.amazonaws.com/
+
+
+APplication ELB uses either of algorithm: 
+1. Round robin 
+2. Least outstanding requests
+
+
+Network Load Balancer: TCP, TLS, udp.. 
+
+Network ELB uses: Flow hash algorithm.. 
+
+https://aws.amazon.com/elasticloadbalancing/features/
+
+
+Task : Launch 3 instances with 3 diff webpages.. Create an application elb, deliver 3 websites with 3 ports (80, 8080, 8888) and deliver from 3 webservers.
+
+
+--> Create a GoldenAMI
+--> Create an ELB
+--> Create an ASG
+	--> Create a Launch config
+	--> Create a ASG
+
+________________________________________________________________________________________
+
+D: 15/07/2020
+
+
+Basic Monitoring : 5 Minutes
+Detailed monitoring : 1 Min
+
+ScaleOut : Adding instance
+ScaleIN : Remove the instance
+
+Always apread instances across multiple AZs.. Run instances evently across the zones.. 
+
+
+______________________________________________________________________________________
+
+D: 16/07/2020
+
+For Windows OS, We have another service called : FSx..
+
+EFS : Elastic File System.
+
+--> EFS works with NFSv4.1 Protocol (Network FIle system)
+--> EFS supports only Linux OS. 
+--> Unlimited storage available.
+--> We can mount it to 1000s of the EC2 instances also.
+
+FSx : For windows instances we have FSx... 
+--> We can manage permissions using Active Directory / AWS Directory services.
+--> It supports SMB protocol.
+
+
+Lightsail : SaaS : 
+
+_______________________________________________________________________________________
+
+D: 17/07/2020
+
+IAM User : Access type : 
+--> Programatic Access : AccessKeyID and SecretAccessKey..
+--> Management console Access : Username, Password & Sign-In.. 
+
+aws.amazon.com/cli	--> Download and install CLI tools 
+
+
+aws --version		--> tells us the installed aws version.
+aws configure		--> To configure cli tools
+
+aws s3 ls		--> List the s3 buckets
+aws servicename command
+
+aws ec2
+aws iam
+aws vpc
+
+aws s3 presign s3://objectpath --expire 60
+
+
+We always use roles instead of CLI...
+
+
+Task : Launch an ec2 instance using cli.
+
+Task 2 : while launching instance, get the index.html from s3 bucket to /var/www/html path and deliver it as webpage. perform this using userdata.
+
+
+How to use roles to provide cross-account access:  
+https://www.youtube.com/watch?v=sZiiB4yF0VY
+
+_______________________________________________________________________________________
+
+D: 20/07/2020
+
+Task : Launch a windows ec2 instance, create a password and forgot the password.. 
+Using "Systems manager run command", ec2rescue tool, get the new password to login to instance.
+
+Task 2 : Install "Putty" in windows instances using Systems Manager run command option.
+
+_______________________________________________________________________________________
+
+D: 21/07/2020
+
+Placements groups : 
+
+--> Cluster PG : Best for low network latenmcy and high network thoughput
+--> Partition PG : ideal 
+--> Spread PG : 
+
+
+Cloudwatch : 
+
+EC2: 
+--> Basic Monitoring : 5 Minutes
+--> Detailed Monitoring (Enhanced Monitoring) : 1 Minute
+
+Using Cloudwatch default metrics, we can monitor only 
+--> CPU
+--> Network
+--> Disk
+--> Status Checks
+
+** We cannot monitor Memory utilisation using cloudwatch default metrics.
+** We cannot monitor Available storage using cloudwatch default metrics.
+we can use Cloudwatch Custom metrics to get the above 2.
+
+** We have an application running inside ec2 instance, We want to get the logs of that application to Cloudwatch Logs, then we can use Cloudwatch Custom metrics.
+
+We can create Dashboards using CW.
+
+Custom notifications using SNS..
+INPUT PATH:
+
+{"instance-id":"$.detail.instance-id", "state":"$.detail.state", "time":"$.time", "region":"$.region", "account":"$.account"}
+
+INPUT TEMPLATE: 
+
+"At <time>, Status of your EC2 instance <instance-id> in the AWS Region <region> has changed to <state>."
+
+__________________
+
+AWS Eventbridges: 
+
+_______________
+
+
+https://www.youtube.com/watch?v=Fe2mEkWiNSA
+
+https://github.com/avizway1/aws-labs/blob/master/Cloudwatch%20Custom%20Metric%20Configuration.MD
+
+______
+
+Ec2 Quiz
+
+_______
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

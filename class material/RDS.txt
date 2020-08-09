@@ -1,0 +1,102 @@
+AWS RDS : Relational Datbase Service
+DaaS : Database as a Service.. 
+
+--> Amazon Aurora (MySql Compatable / PostGreSQL Compatable)
+--> Mysql		: Mysql Workbench
+--> Oracle		: Toad
+--> MariaDB		: Workbench
+--> PostgreSQL		: PGAdmin
+--> Microsoft SQL	: SSMS (SQL Server Management Studio)
+
+--> As DB contains lot of Sensitive information, we run RDS instances always in Private Subnet.
+
+
+License:
+--> LI (License Included)
+--> BYOL (bring your own license)
+--> General Public licenses
+
+--> We will not get any IP address for our DB instances. We will get a DNS Endpoint.
+
+
+Task : Launch MySQL DB, and install MySQL Workbench in Jumpserver and connect to it.
+
+Task : Launch MSSQL DB, and install SSMS in Jumpserver and connect to it.
+Task : Launch postgreSQL DB, and install PGAdmin in Jumpserver and connect to it.
+
+________________________________________________________________________________________
+
+D: 30/07/2020
+
+Multi-AZ Deployment : HA 
+
+Read Replica : 
+
+
+Task : Wordpress task
+
+
+________________________________________________________________________________________
+
+D: 31/07/2020
+
+
+Backup: Snapshots: 
+
+--> Automatic SS : We cannot delete these SS. By reduscing Backup Retention period we can keep only limited Automated SS. When we delete RDS instance, this deletes automatically.
+	--> We will get point-in-time  recovery option.
+
+--> Manual SS : Manually we need to create. We need to delete manully.
+
+
+_____________________________
+
+DynamoDB : Serverless : AWS manages the underlying infra.. 
+--> No Pre-Provisioning required.
+
+single-digit millisecond latency at any scale : DynamoDB
+mobile, web, gaming, ad-tech, IoT
+
+--> How many Read / Write your table required.?
+
+Global Tables for DynamoDB *** : We can make this dynamodb table for multiple regions.. 
+
+In-Memory Caching for DynamoDB : DAX (DynamoDB Accelerator)
+
+DynamoDB offline tool: 
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TicTacToe.html
+
+
+Caching for RDS: 
+--> Elasticache : In-Memory cahing solution for RDS. It supports 2 opensurce caching engines.
+	--> Redis
+	--> MemcacheD
+
+
+AWS Redshift : AWS Datawarehousing 
+
+DMS : https://www.youtube.com/watch?v=iRhJDGp-ew8
+
+mysql -u admin -h mysqldb.cors6zk8kbqy.ap-south-1.rds.amazonaws.com -p password
+
+--> Percona Xtra backup : 3rd party.. upload to s3.. 
+
+Place it in s3 bucket.. 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

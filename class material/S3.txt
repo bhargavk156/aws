@@ -1,0 +1,245 @@
+D: 26/06/2020
+
+Object Based storage : pdf, .exe, .doc...  : S3
+Block Based Storage : Install and run the application / OS.. : Instance Store, EBS
+Network Based Storage : Storage over the network.. : EFS, FSx
+
+S3 : Simple Storage Service
+
+--> We store all the data in buckets.
+--> Bucket name should be unique.
+--> Soft limit for bucket count : 100
+
+Bucket Naming Limitations: 
+
+Min : 3 Char, 63 Char
+Should not start with Capital letters.
+Should not start with . / end with . / no ..
+Bucket name should not resemble IP address format.
+
+
+Off : Block all public access... AT bucket level.. 
+
+
+Standard Path: 
+https://s3.region.amazonaws.com/bucketname/objectname
+
+Virtual Path: 
+https://bucketname.s3.region.amazonaws.com/objectname
+https://bucketname.s3.amazonaws.com/objectname
+
+--> No Pre-provisioning required.
+--> Based on selected storage class, and data transfering, we'll get charged.
+--> We have unlimited storage in s3 platform.
+--> We have a limit for Object size.. 
+--> Max object size s3 supports is 5 TB.. 
+
+
+100gb Data..!!! 
+
+20 gb Frequently
+20 gb infrequntly accesing
+30 gb archive
+20 gb not sure about the access patterns..
+
+
+S3-Standard : Frequently accessed data.. >=3 AZs... 
+Availability : 99.99% , Durability : 99.999999999 %
+
+Standard-IA : Infrequently accessed data.. Data available immediatlely..!!   >=3 AZs..
+Availability : 99.9% , Durability : 99.999999999 %
+
+OneZone-IA : Infrequently accessed data (less Imp Data).. Data available immediatlely..!! 1 AZs..  Availability : 99.5% , Durability : 99.999999999 %
+
+S3 Glacier : Designed for longtime archievals.. Won't availbale immediately..!! Minutes to Hours to restore the data.. Availability : 99.99% , Durability : 99.999999999 % 
+>=3 AZs..
+
+S3 Glacier Deep Archieve : Designed for longtime archievals.. Won't availbale immediately..!! Hours to restore the data.. Availability : 99.99% , Durability : 99.999999999 %.. >=3 AZs..
+
+S3 Intelligent-Tier : When we are not sure about the access patterns.. Data available immediatlely..!!   >=3 AZs.. Availability : 99.9% , Durability : 99.999999999 %
+
+RRS (Redused Redundancy storage) : NOT Recommanded.. Logs, thumbnails.. 
+Duralibility : 99.99%
+
+
+Glacier Retrivals : 
+Bulk retrieval : Typically within 5-12 hours
+
+Standard retrieval : Typically within 3 - 5 hours
+
+Expedited retrieval : Typically within 1 - 5 minutes when retrieving less than 250MB
+
+FreeTier : 
+5 Gb S3-Standard Storage.
+2000 PUT Operations (Upload)
+20,000 GET Operations (Download)
+
+________________________________________________________________________________________
+
+D: 27/06/2020
+
+Versioning :
+--> We can track all changes happening on our file.
+
+Version : HIDE
+--> We can get file back if we delete accidentally. 
+--> We will get a Delete marker, Delete the DM, we can get file back.
+
+Version : SHOW.
+--> If we delete anything, it won' give us the Delete Marker.
+
+
+LCR : Transit object from one storage class to another storage class using LCR. At some point of time, we can trigger to delete the latest version object / Previous verion object.
+
+
+CRR / SRR : 
+___________
+
+Cross Region Replication
+Same region replciation
+
+_______________________________________________________________________________________
+
+D: 29/06/2020
+
+Server access logging : Want to enable logging on a single bucket. 
+
+
+Static website hosting : 
+--> Easy to Manage
+--> For our website also we'll get 99.99% avail, 99.999999999% durability
+--> No OS Patches/ No OS level operations required.
+
+--> We should give atleast readOnly permissions for everyone.
+--> Bucket Name should be same as Domain Name.
+
+http://bucketname.s3-website.region.amazonaws.com	--> avinash.website
+
+http status codes:
+
+2XX : OK / SUCCESS
+3XX : Redirection error
+4XX : Client Side error
+5XX : Service side error
+
+
+Encryptions : 
+
+--> In-Transite Encryption
+	--> SSL / TLS enabled
+
+--> Server Side Encryption / At-Rest Encryption
+	
+--> SSE - S3 (S3 manages the Pubic and private Keys) : Who have valid permissions on s3 platform can decrypt the data.
+
+--> SSE - KMS (KMS Manages the Public and Private Keys, Key material also generates by KMS only) :  
+
+	--> AWS Managed keys : aws/s3 : Who have valid permissions on s3 platform can 					decrypt the data.
+	--> Customer Managed Key : We need to define, who can administrate the key 
+					We can define who can use the key.
+	(NO FREE TIER ELIGIBILITY For CUstomer Managed KEY).
+
+--> SSE - C (KMS Manages the Public and Private Keys but Customer need to upload the key material (public key and private key))
+
+
+--> Client Side Encryption : Before uploading data to s3 platform, in our local devices/ environment we can encrypt the data with our own encry mechanism.
+
+
+
+Symmetric : A single encryption key that is used for both encrypt and decrypt operations
+
+Asymmetric : A public and private key pair that can be used for encrypt/decrypt or sign/verify operations
+
+
+______________________________________________________________________________________
+
+D: 30/06/2020
+
+Object Lock : 
+--> We cannot enable Object lock to an existing bucket.
+--> If we required we can raise a ticket with AWS, they'll enable.
+--> Versioning must be enable, if we want to use Object lock.
+
+--> While creating bucket, we need enable this option.
+
+Governance mode can be disabled by AWS accounts that have specific IAM permissions.
+Compliance mode cannot be disabled by any user, including the root account.
+
+Tags : We can add tags for easy management.
+
+Transfer acceleration : For qyuick uplaod / downloads via Edge Locations. 
+
+Events : 
+--> SQS Simple Queue Service
+--> Lambda
+--> SNS Simple Notification Service  : 
+
+
+Requester pays: Instead of Bucket owner, who is requesting the data, he'll get charged for the request and data transfer.
+
+Storage class analysis: Tells about our object access patterns, Suggests best storage class for our data.
+
+Metrics : Graphs about our s3 bucket.  : Cloudwatch gives us all these metrics.
+
+
+_______________________________________________________________________________________
+D: 01/07/2020
+
+ACLs : Access Control List : 
+--> Your own 
+--> Another AWS Account		: CLI, 3rd party.. 
+--> Public Access		: CLI, 3rd party..
+--> Store Logs
+
+
+
+bucket Policy : 
+
+Bucket : Restrict/Deny "avinash" to perform Delete and upload object on "avinash" bucket.
+
+
+Effect : ALLOW / DENY		: DENY
+Principal : IAM USER/GROUP	: arn:aws:iam::518084852393:user/avinash
+Actions : Upload / Delete	: PUT OBject , Delete Object
+Resources : on what bucket	: arn:aws:s3:::avinash/*
+
+
+object : arn:aws:s3:::avinash/*
+Bucket : arn:aws:s3:::avinash
+
+PUT : Uplaod
+GET : Download
+
+
+Create an IAM User with AccessKeyID and SecretAccessKey..
+3rd Party : Cloudberry explorer, CyberDuck, S3Browser, WinSCP.. 
+
+
+Import / Export : 
+
+10TB Data ==> AWS.. 
+
+AWS Snowcone : 8TB Device..
+AWS Snowball Edge : 100TB Device..  
+AWS Snowmobile : PB Scale container..
+
+
+AWS Direct Connect : It's a dedicated connectivity between our On-Premise network to AWS Environment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

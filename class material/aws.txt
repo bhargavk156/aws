@@ -1,0 +1,289 @@
+D: 17/06/2020
+
+Pay-as-you-go (use) : 
+
+1 Hour ==> Delete ==> EOM (1 Hour)
+
+
+Capital Expendature 	: Full Upfront : Pay all money, get your server : 10k $
+Operational Expendature : Manage the server, cooling, power connectivity, secutiry
+
+With Cloud / AWS : No capital expendature required.. 
+
+
+Deploymenent Models of CC : 
+
+--> Public Cloud : Open for all, Maintenance : Service provider / Vendor.. AWS, AZure, GCP, oracle cloud, IBM cloud, alibaba.. 
+
+--> private Cloud : One organisation.. Main: your org/ 3rd party org.. 
+
+--> Hybdrid Cloud : combination of one or more.. Pub + pub , pub + priv.. 
+
+--> Community Cloud : group of organizations, they build the network/infra.. Main: one of the org from community.. / 3rd party org.. 
+
+
+Service Models : 
+
+_______________________________________________________________________________________
+
+Does this course required Linux knowlegde.?
+==> yes,  (2/3 sessions), Free Linux Course.. 
+
+Does this course required DevOps also..?
+==> No, CICD.. Free DevOps/Jenkins and Free GIT course..
+
+Does this course required any prog, knowledge..??
+No Prog..
+
+AWS Developer : Python, Node.js, go, ruby, .net core, JSON, YAML : Lambda, Cloudformation.. 
+SysOps Admin : Operational job... 
+Solutions Architect : designing the cloud.. 
+Network specialist : N/w : 
+Database specialist : DBA : Storage admin
+
+Exp / Fresher... I'll make you to understand the subject..!!!
+
+3-4 Yrs to your profile.. 
+
+Usecases :  
+
+95% Hand-On :
+
+DMS / Cloudendure / hybrid storage / storage gateway / SMS : 
+
+Course Duration : 35 Sessions
+_____________________________________________________________________________________
+D: 18/06/2020
+
+Service Models of the CC : 
+
+On-Premise : 
+
+SaaS : 
+PaaS : 
+IaaS : 
+
+
+Application	--> Customer
+Data		--> SA
+runtime		--> Appliction admin
+middleware
+Operating System--> System Admins
+Virtuluation	--> Vmware/kvm/hyper-v
+Servers		--> System Engineers
+Database	--> DBA
+Storage		--> SAN/NAS Admin 
+Network		--> Network Admin
+
+
+Power		--> 
+Employes	--> .net iis /java tomcat apche/ apache
+Space/place	--> 
+Cooling systems	--> 
+
+
+Requirement : A Website
+
+SaaS : Lightsail 
+PaaS : Beanstalk
+IaaS : ec2
+
+
+_______________________________________________________________________________________
+D: 22/06/2020
+
+2003 : ChrisPink and Benjamin black.. Whitepapers.. How to sell service.. SQS
+2006 : AWS Officially Launched..s
+2012 : Annual conference .. : AWS Re:Invent.. Nov-Dec, Los Vegas.. 
+
+Amazon CEO : Jeff bejos
+AWS CEO : Andy Jessy
+
+
+
+AWS GLobal Infrastructure : 
+
+Regions : Physical or geographical location.. There is no technical defination for region.. 24 Regions .. 
+	3 : China
+	3 : UsGovCloud
+
+Aviailability Zones (AZ) : Data Center or combination of multiple DCs also.. 
+--> Every region contains min of 3 AZs.. 
+--> 76 AZs.. 
+
+PoP Point of Presence Location : Edge Location (CLoudFront): 216 CDN Endpoint.. Cached locations.. 
+
+
+_______________________________________________________________________________________
+
+D: 23/06/2020
+
+AWS Account Cretion: 
+Navigate to "aws.amazon.com/free"	--> Create a Free Account.
+
+Step: 1
+Email : We called it as "root user/Email". 
+Password
+Confirm Password
+Account Name
+
+Step: 2
+
+Provide the contact information.
+Full Name, Address, Ph Number, Create an AWS Account.
+
+Step 3 : 
+
+Provide Valid Payment information..
+--> Credit Card / Debit Card.. VIsa/ Master Card / AMEX
+--> 2 INR from bank account.. Refund.. 
+
+Step 4 : Identity verification..
+
+--> Phone / Email verification..
+Captcha, Enter ph num, You'll get an IVR call, Answer and Enter Screen generated XXXX pin.
+
+Step 5 : Choose a Support plan..
+
+1). Account and Billing related : Free for all SP, 24x7 Support
+2). Service limit increase : Free for all SP, 24x7 Support
+3). Technical assistance : Depends on the support plan..!!!!
+
+
+Basic SP : Free, 1 & 2 included, No 3... 7 Core checks from trusted advisor.. AWS Developer forums, KB articles.. 
+
+Developer SP :  29$/Month, 1 & 2 included.. Tech : Unlited cases, 1 Primary contact.. 
+Cloud Suport associate provide assistance.. 12-24 Local business hours email support..  7 Core checks from trusted advisor..
+
+System Impaired < 12 Hrs,
+General guidelines <24 Hrs....
+
+
+Business SP : 100$/Month, 1 & 2 included.. Tech : Unlimited cases, Any User.. 24x7 Phone, email and chat support from Cloud Support Engineer.. Full Trusted Advisor checks.. 
+
+Production system Down < 1 Hr, 
+Production system impaired < 4 Hrs,
+System Impaired < 12 Hrs,
+General guidelines <24 Hrs....
+
+Enterprise SP : 15K $/Month, 1 & 2 included.. Tech : Unlimited cases, Any User.. 24x7 Phone, email and chat support from Cloud Support Engineer.. Full Trusted Advisor checks.. 
+
+Business Critical System Down < 15 Min.. 
+Production system Down < 1 Hr, 
+Production system impaired < 4 Hrs,
+System Impaired < 12 Hrs,
+General guidelines <24 Hrs....
+--> TAM (technical Account Manager), He performs architectural reviews.. Reviews and guideleines.. 
+
+
+https://avinash3.s3.ap-south-1.amazonaws.com/aws.txt
+
+
+_______________________________________________________________________________________
+
+D: 24/06/2020
+
+How to secure root account..!!!
+We can enable MFA on root account.
+
+Virtual MFA : Smart Phone..
+Physical MFA : Physical device..  
+Yuby2Key : Physical device.. 
+
+
+s3 : Storage Service : GDrive
+ec2 : Server 
+
+
+Root : 
+
+IAM : Identity and Access Management.. Where we can create, manage users/Groups within our AWS account. We provide permissions based on the requirement/jobrole.
+
+Policy : A Document that contains set of permissions on our AWS account.
+
+--> Storage Admin : S3 FUll Access Policy: .. AccessDenied/Not Authorized
+--> Server Admin : ec2 Full Access Policy: 
+
+Create an IAM user for Storage Admin, Server Admin
+
+
+avinash : s3Access  : 
+anudeep : ec2access : 
+
+
+Step 1 : username
+Step 2 : Select AWS access type
+
+--> AWS Management Console: GUI : Broswer : UserName, Password & Sign-IN
+--> Programatic Access : CLI : sdk, api, 3rd party apps : AccessKeyID & SecretAccessKey
+
+Step 3 : Set Permissions
+
+--> Create a Group, Add Users to Group, Apply permissions on Group Level.
+--> Copy permissions from another user.
+--> Attach permissions at user level.
+
+Step 4 : Add tags, Review and create
+
+
+
+Task : Create an IAM user, Add "Administrator Access", and try to login and try to change the support plan..????
+
+Task 2 : Use Task 1 user, and try to access Billing information, We won't get access on blling.. What steps you need to perform to provide billing access to an IAM user.
+
+_______________________________________________________________________________________
+
+D: 25/06/2020
+
+--> AWS Managed policy - Job Function : AWS Manages, But permissions defined based on Jobs.
+--> AWS Managed policy : AWS Manages this based on the Service.. 
+
+--> Customer Managed Policy : 
+
+
+Administrator - Deny S3 
+
+
+Service : S3
+Action : ALLOW / DENY : DENY
+Resource : All resource
+
+
+Set a permissions boundary to control the maximum permissions user can have.
+
+
+Task : Create an IAM user, provide S3FullAccess, Not try to Enable MFA. X
+Create a Policy to Activate MFA himself.
+
+Task 2 : Create a Policy to Provide access on S3, Ec2 and IAM..! Allocate to an IAM user and test it.
+
+Task 3 : Explore Policy Simulator.
+
+JUNE20  : WOrks only for coming 3 Days..
+
+https://www.udemy.com/course/linuxwithavinash/?couponCode=JUNE20
+
+https://www.udemy.com/course/gitbyavinash/?couponCode=JUNE20
+
+https://www.udemy.com/course/jenkinswithavinash/?couponCode=JUNE20
+
+________________________________________________________________________________________
+
+D: 26/06/2020
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
